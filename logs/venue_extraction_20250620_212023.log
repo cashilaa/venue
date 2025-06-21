@@ -1,0 +1,27 @@
+2025-06-20 21:20:23,734 - INFO - Venue Specification Extractor initialized
+2025-06-20 21:20:29,986 - INFO - Starting extraction process for 1 venues
+2025-06-20 21:20:29,986 - INFO - Step 1: Discovering venue websites...
+2025-06-20 21:20:29,986 - INFO - Searching for websites for venue: Big Five (orchestras)
+2025-06-20 21:21:04,240 - INFO - Step 2: Locating technical specification PDFs...
+2025-06-20 21:21:04,240 - INFO - Searching for PDFs on websites for venue: Big Five (orchestras)
+2025-06-20 21:21:08,733 - WARNING - Some characters could not be decoded, and were replaced with REPLACEMENT CHARACTER.
+2025-06-20 21:21:11,087 - WARNING - Some characters could not be decoded, and were replaced with REPLACEMENT CHARACTER.
+2025-06-20 21:21:12,107 - INFO - Step 3: Downloading PDFs...
+2025-06-20 21:21:12,111 - INFO - Step 4: Processing PDFs and extracting content...
+2025-06-20 21:21:12,111 - INFO - Processing PDFs for venue: Big Five (orchestras)
+2025-06-20 21:21:12,111 - INFO - Step 5: Extracting equipment data using AI...
+2025-06-20 21:21:12,112 - INFO - Extracting equipment data for venue: Big Five (orchestras)
+2025-06-20 21:21:12,112 - INFO - Step 6: Standardizing and normalizing data...
+2025-06-20 21:21:12,112 - INFO - Standardizing data for venue: Big Five (orchestras)
+2025-06-20 21:21:12,112 - INFO - Step 7: Validating standardized data...
+2025-06-20 21:21:12,113 - INFO - Step 8: Exporting data to structured formats...
+2025-06-20 21:21:12,116 - INFO - Data exported to JSON: output\venue_equipment_data_20250620_212112.json
+2025-06-20 21:21:12,139 - INFO - Data exported to CSV: output\venue_equipment_data_20250620_212112.csv
+2025-06-20 21:21:12,142 - INFO - Summary report generated: output\venue_equipment_report_20250620_212112.json
+2025-06-20 21:21:12,144 - INFO - Equipment database exported: output\equipment_database_20250620_212112.json
+2025-06-20 21:21:12,144 - INFO - All formats exported successfully: ['json', 'csv', 'report', 'database']
+2025-06-20 21:21:12,144 - INFO - Extraction completed successfully!
+2025-06-20 21:21:12,145 - INFO - Total venues processed: 1
+2025-06-20 21:21:12,145 - INFO - Total equipment items extracted: 0
+2025-06-20 21:21:12,145 - INFO - Total validation issues: 0
+2025-06-20 21:21:12,145 - INFO - Exported files: ['json', 'csv', 'report', 'database']

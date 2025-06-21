@@ -1,0 +1,162 @@
+2025-06-20 22:43:37,203 - INFO - Venue Specification Extractor initialized
+2025-06-20 22:43:39,500 - INFO - Starting extraction process for 20 venues
+2025-06-20 22:43:39,501 - INFO - Step 1: Discovering venue websites...
+2025-06-20 22:43:39,501 - INFO - Searching for websites for venue: AT&T Performing Arts Center
+2025-06-20 22:44:13,377 - INFO - Searching for websites for venue: AT&T Stadium
+2025-06-20 22:45:43,060 - INFO - Searching for websites for venue: Academy of Music, University of Zagreb
+2025-06-20 22:45:53,273 - ERROR - Serper search failed for Academy of Music, University of Zagreb: HTTPSConnectionPool(host='google.serper.dev', port=443): Max retries exceeded with url: /search (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1000)')))
+2025-06-21 01:46:09,581 - ERROR - DuckDuckGo search failed for Academy of Music, University of Zagreb: ('Connection aborted.', ConnectionAbortedError(10053, 'An established connection was aborted by the software in your host machine', None, 10053, None))
+2025-06-21 01:46:10,674 - INFO - Searching for websites for venue: Adelaide Festival Centre
+2025-06-21 01:46:11,356 - ERROR - Serper search failed for Adelaide Festival Centre: HTTPSConnectionPool(host='google.serper.dev', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x00000209B5203380>: Failed to resolve 'google.serper.dev' ([Errno 11001] getaddrinfo failed)"))
+2025-06-21 01:46:11,439 - ERROR - DuckDuckGo search failed for Adelaide Festival Centre: HTTPSConnectionPool(host='duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=%22Adelaide%20Festival%20Centre%22%20venue%20official%20website%20technical%20specification%20filetype:pdf (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x00000209B517E450>: Failed to resolve 'duckduckgo.com' ([Errno 11001] getaddrinfo failed)"))
+2025-06-21 01:46:12,518 - INFO - Searching for websites for venue: Al Hirschfeld Theatre
+2025-06-21 01:46:12,523 - ERROR - Serper search failed for Al Hirschfeld Theatre: HTTPSConnectionPool(host='google.serper.dev', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x00000209B4117410>: Failed to resolve 'google.serper.dev' ([Errno 11001] getaddrinfo failed)"))
+2025-06-21 01:46:12,573 - ERROR - DuckDuckGo search failed for Al Hirschfeld Theatre: HTTPSConnectionPool(host='duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=%22Al%20Hirschfeld%20Theatre%22%20venue%20official%20website%20technical%20specification%20filetype:pdf (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x00000209B5202810>: Failed to resolve 'duckduckgo.com' ([Errno 11001] getaddrinfo failed)"))
+2025-06-21 01:46:13,901 - INFO - Searching for websites for venue: Alabama Theatre
+2025-06-21 01:46:14,011 - ERROR - Serper search failed for Alabama Theatre: HTTPSConnectionPool(host='google.serper.dev', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x00000209B5201DF0>: Failed to resolve 'google.serper.dev' ([Errno 11001] getaddrinfo failed)"))
+2025-06-21 01:46:14,082 - ERROR - DuckDuckGo search failed for Alabama Theatre: HTTPSConnectionPool(host='duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=%22Alabama%20Theatre%22%20venue%20official%20website%20technical%20specification%20filetype:pdf (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x00000209B5201910>: Failed to resolve 'duckduckgo.com' ([Errno 11001] getaddrinfo failed)"))
+2025-06-21 01:46:15,093 - INFO - Searching for websites for venue: Aladdin Theater
+2025-06-21 01:46:15,108 - ERROR - Serper search failed for Aladdin Theater: HTTPSConnectionPool(host='google.serper.dev', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x00000209B5203620>: Failed to resolve 'google.serper.dev' ([Errno 11001] getaddrinfo failed)"))
+2025-06-21 01:46:15,118 - ERROR - DuckDuckGo search failed for Aladdin Theater: HTTPSConnectionPool(host='duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=%22Aladdin%20Theater%22%20venue%20official%20website%20technical%20specification%20filetype:pdf (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x00000209B5203A40>: Failed to resolve 'duckduckgo.com' ([Errno 11001] getaddrinfo failed)"))
+2025-06-21 01:46:16,150 - INFO - Searching for websites for venue: Alexela Concert Hall
+2025-06-21 01:46:16,686 - ERROR - Serper search failed for Alexela Concert Hall: HTTPSConnectionPool(host='google.serper.dev', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x00000209B409ED20>: Failed to resolve 'google.serper.dev' ([Errno 11001] getaddrinfo failed)"))
+2025-06-21 01:46:16,691 - ERROR - DuckDuckGo search failed for Alexela Concert Hall: HTTPSConnectionPool(host='duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=%22Alexela%20Concert%20Hall%22%20venue%20official%20website%20technical%20specification%20filetype:pdf (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x00000209B52036E0>: Failed to resolve 'duckduckgo.com' ([Errno 11001] getaddrinfo failed)"))
+2025-06-21 01:46:17,700 - INFO - Searching for websites for venue: Alys Robinson Stephens Performing Arts Center
+2025-06-21 01:46:17,715 - ERROR - Serper search failed for Alys Robinson Stephens Performing Arts Center: HTTPSConnectionPool(host='google.serper.dev', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x00000209B5201010>: Failed to resolve 'google.serper.dev' ([Errno 11001] getaddrinfo failed)"))
+2025-06-21 01:46:17,724 - ERROR - DuckDuckGo search failed for Alys Robinson Stephens Performing Arts Center: HTTPSConnectionPool(host='duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=%22Alys%20Robinson%20Stephens%20Performing%20Arts%20Center%22%20venue%20official%20website%20technical%20specification%20filetype:pdf (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x00000209B52016D0>: Failed to resolve 'duckduckgo.com' ([Errno 11001] getaddrinfo failed)"))
+2025-06-21 01:46:18,765 - INFO - Searching for websites for venue: Amaturo Theater
+2025-06-21 01:46:18,769 - ERROR - Serper search failed for Amaturo Theater: HTTPSConnectionPool(host='google.serper.dev', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x00000209B52023F0>: Failed to resolve 'google.serper.dev' ([Errno 11001] getaddrinfo failed)"))
+2025-06-21 01:46:18,774 - ERROR - DuckDuckGo search failed for Amaturo Theater: HTTPSConnectionPool(host='duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=%22Amaturo%20Theater%22%20venue%20official%20website%20technical%20specification%20filetype:pdf (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x00000209B52027E0>: Failed to resolve 'duckduckgo.com' ([Errno 11001] getaddrinfo failed)"))
+2025-06-21 01:46:19,781 - INFO - Searching for websites for venue: Ambassador Theatre (New York City)
+2025-06-21 01:46:19,799 - ERROR - Serper search failed for Ambassador Theatre (New York City): HTTPSConnectionPool(host='google.serper.dev', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x00000209B517D7C0>: Failed to resolve 'google.serper.dev' ([Errno 11001] getaddrinfo failed)"))
+2025-06-21 01:46:19,805 - ERROR - DuckDuckGo search failed for Ambassador Theatre (New York City): HTTPSConnectionPool(host='duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=%22Ambassador%20Theatre%20(New%20York%20City)%22%20venue%20official%20website%20technical%20specification%20filetype:pdf (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x00000209B517E0F0>: Failed to resolve 'duckduckgo.com' ([Errno 11001] getaddrinfo failed)"))
+2025-06-21 01:46:20,807 - INFO - Searching for websites for venue: American Airlines Center
+2025-06-21 12:12:06,338 - ERROR - Serper search failed for American Airlines Center: HTTPSConnectionPool(host='google.serper.dev', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x00000209B517DE20>: Failed to resolve 'google.serper.dev' ([Errno 11001] getaddrinfo failed)"))
+2025-06-21 12:12:06,344 - ERROR - DuckDuckGo search failed for American Airlines Center: HTTPSConnectionPool(host='duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=%22American%20Airlines%20Center%22%20venue%20official%20website%20technical%20specification%20filetype:pdf (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x00000209B517E5D0>: Failed to resolve 'duckduckgo.com' ([Errno 11001] getaddrinfo failed)"))
+2025-06-21 12:12:07,352 - INFO - Searching for websites for venue: Anaheim Convention Center
+2025-06-21 12:12:07,360 - ERROR - Serper search failed for Anaheim Convention Center: HTTPSConnectionPool(host='google.serper.dev', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x00000209B5203260>: Failed to resolve 'google.serper.dev' ([Errno 11001] getaddrinfo failed)"))
+2025-06-21 12:12:07,374 - ERROR - DuckDuckGo search failed for Anaheim Convention Center: HTTPSConnectionPool(host='duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=%22Anaheim%20Convention%20Center%22%20venue%20official%20website%20technical%20specification%20filetype:pdf (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x00000209B5202810>: Failed to resolve 'duckduckgo.com' ([Errno 11001] getaddrinfo failed)"))
+2025-06-21 12:12:08,383 - INFO - Searching for websites for venue: Angel Stadium
+2025-06-21 12:12:08,410 - ERROR - Serper search failed for Angel Stadium: HTTPSConnectionPool(host='google.serper.dev', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x00000209B5201C10>: Failed to resolve 'google.serper.dev' ([Errno 11001] getaddrinfo failed)"))
+2025-06-21 12:12:08,416 - ERROR - DuckDuckGo search failed for Angel Stadium: HTTPSConnectionPool(host='duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=%22Angel%20Stadium%22%20venue%20official%20website%20technical%20specification%20filetype:pdf (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x00000209B5200B00>: Failed to resolve 'duckduckgo.com' ([Errno 11001] getaddrinfo failed)"))
+2025-06-21 12:12:09,448 - INFO - Searching for websites for venue: Annenberg Center for the Performing Arts
+2025-06-21 12:12:09,490 - ERROR - Serper search failed for Annenberg Center for the Performing Arts: HTTPSConnectionPool(host='google.serper.dev', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x00000209B517EE40>: Failed to resolve 'google.serper.dev' ([Errno 11001] getaddrinfo failed)"))
+2025-06-21 12:12:09,498 - ERROR - DuckDuckGo search failed for Annenberg Center for the Performing Arts: HTTPSConnectionPool(host='duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=%22Annenberg%20Center%20for%20the%20Performing%20Arts%22%20venue%20official%20website%20technical%20specification%20filetype:pdf (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x00000209B517E600>: Failed to resolve 'duckduckgo.com' ([Errno 11001] getaddrinfo failed)"))
+2025-06-21 12:12:10,501 - INFO - Searching for websites for venue: Antoinette Hatfield Hall
+2025-06-21 12:12:10,505 - ERROR - Serper search failed for Antoinette Hatfield Hall: HTTPSConnectionPool(host='google.serper.dev', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x00000209B5202510>: Failed to resolve 'google.serper.dev' ([Errno 11001] getaddrinfo failed)"))
+2025-06-21 12:12:10,511 - ERROR - DuckDuckGo search failed for Antoinette Hatfield Hall: HTTPSConnectionPool(host='duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=%22Antoinette%20Hatfield%20Hall%22%20venue%20official%20website%20technical%20specification%20filetype:pdf (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x00000209B5202270>: Failed to resolve 'duckduckgo.com' ([Errno 11001] getaddrinfo failed)"))
+2025-06-21 12:12:11,513 - INFO - Searching for websites for venue: Apollo Theater
+2025-06-21 12:12:11,515 - ERROR - Serper search failed for Apollo Theater: HTTPSConnectionPool(host='google.serper.dev', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x00000209B5203050>: Failed to resolve 'google.serper.dev' ([Errno 11001] getaddrinfo failed)"))
+2025-06-21 12:12:11,517 - ERROR - DuckDuckGo search failed for Apollo Theater: HTTPSConnectionPool(host='duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=%22Apollo%20Theater%22%20venue%20official%20website%20technical%20specification%20filetype:pdf (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x00000209B5203AA0>: Failed to resolve 'duckduckgo.com' ([Errno 11001] getaddrinfo failed)"))
+2025-06-21 12:12:12,517 - INFO - Searching for websites for venue: Arts United Center
+2025-06-21 12:12:12,521 - ERROR - Serper search failed for Arts United Center: HTTPSConnectionPool(host='google.serper.dev', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x00000209B5203B90>: Failed to resolve 'google.serper.dev' ([Errno 11001] getaddrinfo failed)"))
+2025-06-21 12:12:12,524 - ERROR - DuckDuckGo search failed for Arts United Center: HTTPSConnectionPool(host='duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=%22Arts%20United%20Center%22%20venue%20official%20website%20technical%20specification%20filetype:pdf (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x00000209B3C92C60>: Failed to resolve 'duckduckgo.com' ([Errno 11001] getaddrinfo failed)"))
+2025-06-21 12:12:13,526 - INFO - Searching for websites for venue: Athens Concert Hall
+2025-06-21 12:12:13,529 - ERROR - Serper search failed for Athens Concert Hall: HTTPSConnectionPool(host='google.serper.dev', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x00000209B517EB70>: Failed to resolve 'google.serper.dev' ([Errno 11001] getaddrinfo failed)"))
+2025-06-21 12:12:13,532 - ERROR - DuckDuckGo search failed for Athens Concert Hall: HTTPSConnectionPool(host='duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=%22Athens%20Concert%20Hall%22%20venue%20official%20website%20technical%20specification%20filetype:pdf (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x00000209B5203B90>: Failed to resolve 'duckduckgo.com' ([Errno 11001] getaddrinfo failed)"))
+2025-06-21 12:12:14,534 - INFO - Searching for websites for venue: Athens State Orchestra
+2025-06-21 12:12:14,537 - ERROR - Serper search failed for Athens State Orchestra: HTTPSConnectionPool(host='google.serper.dev', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x00000209B5202EA0>: Failed to resolve 'google.serper.dev' ([Errno 11001] getaddrinfo failed)"))
+2025-06-21 12:12:14,540 - ERROR - DuckDuckGo search failed for Athens State Orchestra: HTTPSConnectionPool(host='duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=%22Athens%20State%20Orchestra%22%20venue%20official%20website%20technical%20specification%20filetype:pdf (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x00000209B5202D80>: Failed to resolve 'duckduckgo.com' ([Errno 11001] getaddrinfo failed)"))
+2025-06-21 12:12:15,541 - INFO - Step 2: Locating technical specification PDFs...
+2025-06-21 12:12:15,542 - INFO - Searching for PDFs on websites for venue: AT&T Performing Arts Center
+2025-06-21 12:12:15,600 - ERROR - Error processing site https://theatreprojects.com/wp-content/uploads/2022/06/typesandformsoftheatres.pdf: HTTPSConnectionPool(host='theatreprojects.com', port=443): Max retries exceeded with url: /wp-content/uploads/2022/06/typesandformsoftheatres.pdf (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x00000209B517EF30>: Failed to resolve 'theatreprojects.com' ([Errno 11001] getaddrinfo failed)"))
+2025-06-21 12:12:16,633 - ERROR - Error processing site https://attpac-media.imgix.net/wp-content/uploads/Studio-Theatre-Technical-Specifcations-9.12.23.pdf: HTTPSConnectionPool(host='attpac-media.imgix.net', port=443): Max retries exceeded with url: /wp-content/uploads/Studio-Theatre-Technical-Specifcations-9.12.23.pdf (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x00000209B517ECF0>: Failed to resolve 'attpac-media.imgix.net' ([Errno 11001] getaddrinfo failed)"))
+2025-06-21 12:12:17,695 - ERROR - Error processing site http://attpac-website-assets.s3.amazonaws.com/assets/File/700.pdf: HTTPConnectionPool(host='attpac-website-assets.s3.amazonaws.com', port=80): Max retries exceeded with url: /assets/File/700.pdf (Caused by NameResolutionError("<urllib3.connection.HTTPConnection object at 0x00000209B517D790>: Failed to resolve 'attpac-website-assets.s3.amazonaws.com' ([Errno 11001] getaddrinfo failed)"))
+2025-06-21 12:12:18,886 - ERROR - Error processing site https://dallastheatercenter.org/wp-content/uploads/2023/07/Kalita-Rentals-Tech-Ops-Manager-Job-Description-6-30-23.pdf: HTTPSConnectionPool(host='dallastheatercenter.org', port=443): Max retries exceeded with url: /wp-content/uploads/2023/07/Kalita-Rentals-Tech-Ops-Manager-Job-Description-6-30-23.pdf (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x00000209B517FB90>: Failed to resolve 'dallastheatercenter.org' ([Errno 11001] getaddrinfo failed)"))
+2025-06-21 12:12:19,934 - ERROR - Error processing site https://www.friscotexas.gov/DocumentCenter/View/36032/FCFA-FAQ_MARCH2025_2025-03-07?bidId=: HTTPSConnectionPool(host='www.friscotexas.gov', port=443): Max retries exceeded with url: /DocumentCenter/View/36032/FCFA-FAQ_MARCH2025_2025-03-07?bidId= (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x00000209B517F530>: Failed to resolve 'www.friscotexas.gov' ([Errno 11001] getaddrinfo failed)"))
+2025-06-21 12:12:20,936 - INFO - Searching for PDFs on websites for venue: AT&T Stadium
+2025-06-21 12:12:20,939 - ERROR - Error processing site https://stadiumtechreport.com/wp-content/uploads/2021/01/STR-2020-12-Q4-Pub-FINAL-3-SINGLE.pdf: HTTPSConnectionPool(host='stadiumtechreport.com', port=443): Max retries exceeded with url: /wp-content/uploads/2021/01/STR-2020-12-Q4-Pub-FINAL-3-SINGLE.pdf (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x00000209B52005C0>: Failed to resolve 'stadiumtechreport.com' ([Errno 11001] getaddrinfo failed)"))
+2025-06-21 12:12:21,940 - INFO - Searching for PDFs on websites for venue: Academy of Music, University of Zagreb
+2025-06-21 12:12:21,941 - INFO - Searching for PDFs on websites for venue: Adelaide Festival Centre
+2025-06-21 12:12:21,941 - INFO - Searching for PDFs on websites for venue: Al Hirschfeld Theatre
+2025-06-21 12:12:21,942 - INFO - Searching for PDFs on websites for venue: Alabama Theatre
+2025-06-21 12:12:21,942 - INFO - Searching for PDFs on websites for venue: Aladdin Theater
+2025-06-21 12:12:21,943 - INFO - Searching for PDFs on websites for venue: Alexela Concert Hall
+2025-06-21 12:12:21,943 - INFO - Searching for PDFs on websites for venue: Alys Robinson Stephens Performing Arts Center
+2025-06-21 12:12:21,943 - INFO - Searching for PDFs on websites for venue: Amaturo Theater
+2025-06-21 12:12:21,943 - INFO - Searching for PDFs on websites for venue: Ambassador Theatre (New York City)
+2025-06-21 12:12:21,944 - INFO - Searching for PDFs on websites for venue: American Airlines Center
+2025-06-21 12:12:21,944 - INFO - Searching for PDFs on websites for venue: Anaheim Convention Center
+2025-06-21 12:12:21,945 - INFO - Searching for PDFs on websites for venue: Angel Stadium
+2025-06-21 12:12:21,946 - INFO - Searching for PDFs on websites for venue: Annenberg Center for the Performing Arts
+2025-06-21 12:12:21,946 - INFO - Searching for PDFs on websites for venue: Antoinette Hatfield Hall
+2025-06-21 12:12:21,946 - INFO - Searching for PDFs on websites for venue: Apollo Theater
+2025-06-21 12:12:21,947 - INFO - Searching for PDFs on websites for venue: Arts United Center
+2025-06-21 12:12:21,948 - INFO - Searching for PDFs on websites for venue: Athens Concert Hall
+2025-06-21 12:12:21,948 - INFO - Searching for PDFs on websites for venue: Athens State Orchestra
+2025-06-21 12:12:21,949 - INFO - Step 3: Downloading PDFs...
+2025-06-21 12:12:21,965 - INFO - Step 4: Processing PDFs and extracting content...
+2025-06-21 12:12:21,966 - INFO - Processing PDFs for venue: AT&T Performing Arts Center
+2025-06-21 12:12:21,966 - INFO - Processing PDFs for venue: AT&T Stadium
+2025-06-21 12:12:21,967 - INFO - Processing PDFs for venue: Academy of Music, University of Zagreb
+2025-06-21 12:12:21,969 - INFO - Processing PDFs for venue: Adelaide Festival Centre
+2025-06-21 12:12:21,969 - INFO - Processing PDFs for venue: Al Hirschfeld Theatre
+2025-06-21 12:12:21,970 - INFO - Processing PDFs for venue: Alabama Theatre
+2025-06-21 12:12:21,971 - INFO - Processing PDFs for venue: Aladdin Theater
+2025-06-21 12:12:21,971 - INFO - Processing PDFs for venue: Alexela Concert Hall
+2025-06-21 12:12:21,971 - INFO - Processing PDFs for venue: Alys Robinson Stephens Performing Arts Center
+2025-06-21 12:12:21,972 - INFO - Processing PDFs for venue: Amaturo Theater
+2025-06-21 12:12:21,972 - INFO - Processing PDFs for venue: Ambassador Theatre (New York City)
+2025-06-21 12:12:21,973 - INFO - Processing PDFs for venue: American Airlines Center
+2025-06-21 12:12:21,973 - INFO - Processing PDFs for venue: Anaheim Convention Center
+2025-06-21 12:12:21,973 - INFO - Processing PDFs for venue: Angel Stadium
+2025-06-21 12:12:21,973 - INFO - Processing PDFs for venue: Annenberg Center for the Performing Arts
+2025-06-21 12:12:21,974 - INFO - Processing PDFs for venue: Antoinette Hatfield Hall
+2025-06-21 12:12:21,975 - INFO - Processing PDFs for venue: Apollo Theater
+2025-06-21 12:12:21,975 - INFO - Processing PDFs for venue: Arts United Center
+2025-06-21 12:12:21,975 - INFO - Processing PDFs for venue: Athens Concert Hall
+2025-06-21 12:12:21,977 - INFO - Processing PDFs for venue: Athens State Orchestra
+2025-06-21 12:12:21,977 - INFO - Step 5: Extracting equipment data using AI...
+2025-06-21 12:12:21,977 - INFO - Extracting equipment data for venue: AT&T Performing Arts Center
+2025-06-21 12:12:21,977 - INFO - Extracting equipment data for venue: AT&T Stadium
+2025-06-21 12:12:21,977 - INFO - Extracting equipment data for venue: Academy of Music, University of Zagreb
+2025-06-21 12:12:21,979 - INFO - Extracting equipment data for venue: Adelaide Festival Centre
+2025-06-21 12:12:21,979 - INFO - Extracting equipment data for venue: Al Hirschfeld Theatre
+2025-06-21 12:12:21,979 - INFO - Extracting equipment data for venue: Alabama Theatre
+2025-06-21 12:12:21,979 - INFO - Extracting equipment data for venue: Aladdin Theater
+2025-06-21 12:12:21,980 - INFO - Extracting equipment data for venue: Alexela Concert Hall
+2025-06-21 12:12:21,980 - INFO - Extracting equipment data for venue: Alys Robinson Stephens Performing Arts Center
+2025-06-21 12:12:21,981 - INFO - Extracting equipment data for venue: Amaturo Theater
+2025-06-21 12:12:21,981 - INFO - Extracting equipment data for venue: Ambassador Theatre (New York City)
+2025-06-21 12:12:21,982 - INFO - Extracting equipment data for venue: American Airlines Center
+2025-06-21 12:12:21,982 - INFO - Extracting equipment data for venue: Anaheim Convention Center
+2025-06-21 12:12:21,983 - INFO - Extracting equipment data for venue: Angel Stadium
+2025-06-21 12:12:21,983 - INFO - Extracting equipment data for venue: Annenberg Center for the Performing Arts
+2025-06-21 12:12:21,983 - INFO - Extracting equipment data for venue: Antoinette Hatfield Hall
+2025-06-21 12:12:21,984 - INFO - Extracting equipment data for venue: Apollo Theater
+2025-06-21 12:12:21,984 - INFO - Extracting equipment data for venue: Arts United Center
+2025-06-21 12:12:21,984 - INFO - Extracting equipment data for venue: Athens Concert Hall
+2025-06-21 12:12:21,985 - INFO - Extracting equipment data for venue: Athens State Orchestra
+2025-06-21 12:12:21,986 - INFO - Step 6: Standardizing and normalizing data...
+2025-06-21 12:12:21,986 - INFO - Standardizing data for venue: AT&T Performing Arts Center
+2025-06-21 12:12:21,986 - INFO - Standardizing data for venue: AT&T Stadium
+2025-06-21 12:12:21,987 - INFO - Standardizing data for venue: Academy of Music, University of Zagreb
+2025-06-21 12:12:21,987 - INFO - Standardizing data for venue: Adelaide Festival Centre
+2025-06-21 12:12:21,988 - INFO - Standardizing data for venue: Al Hirschfeld Theatre
+2025-06-21 12:12:21,989 - INFO - Standardizing data for venue: Alabama Theatre
+2025-06-21 12:12:21,989 - INFO - Standardizing data for venue: Aladdin Theater
+2025-06-21 12:12:21,990 - INFO - Standardizing data for venue: Alexela Concert Hall
+2025-06-21 12:12:21,991 - INFO - Standardizing data for venue: Alys Robinson Stephens Performing Arts Center
+2025-06-21 12:12:21,991 - INFO - Standardizing data for venue: Amaturo Theater
+2025-06-21 12:12:21,992 - INFO - Standardizing data for venue: Ambassador Theatre (New York City)
+2025-06-21 12:12:21,992 - INFO - Standardizing data for venue: American Airlines Center
+2025-06-21 12:12:21,993 - INFO - Standardizing data for venue: Anaheim Convention Center
+2025-06-21 12:12:21,993 - INFO - Standardizing data for venue: Angel Stadium
+2025-06-21 12:12:21,993 - INFO - Standardizing data for venue: Annenberg Center for the Performing Arts
+2025-06-21 12:12:21,994 - INFO - Standardizing data for venue: Antoinette Hatfield Hall
+2025-06-21 12:12:21,995 - INFO - Standardizing data for venue: Apollo Theater
+2025-06-21 12:12:21,996 - INFO - Standardizing data for venue: Arts United Center
+2025-06-21 12:12:21,998 - INFO - Standardizing data for venue: Athens Concert Hall
+2025-06-21 12:12:22,003 - INFO - Standardizing data for venue: Athens State Orchestra
+2025-06-21 12:12:22,004 - INFO - Step 7: Validating standardized data...
+2025-06-21 12:12:22,009 - INFO - Step 8: Exporting data to structured formats...
+2025-06-21 12:12:22,027 - INFO - Data exported to JSON: output\venue_equipment_data_20250621_121222.json
+2025-06-21 12:12:22,237 - INFO - Data exported to CSV: output\venue_equipment_data_20250621_121222.csv
+2025-06-21 12:12:22,243 - INFO - Summary report generated: output\venue_equipment_report_20250621_121222.json
+2025-06-21 12:12:22,245 - INFO - Equipment database exported: output\equipment_database_20250621_121222.json
+2025-06-21 12:12:22,246 - INFO - All formats exported successfully: ['json', 'csv', 'report', 'database']
+2025-06-21 12:12:22,247 - INFO - Extraction completed successfully!
+2025-06-21 12:12:22,247 - INFO - Total venues processed: 20
+2025-06-21 12:12:22,247 - INFO - Total equipment items extracted: 0
+2025-06-21 12:12:22,248 - INFO - Total validation issues: 0
+2025-06-21 12:12:22,249 - INFO - Exported files: ['json', 'csv', 'report', 'database']

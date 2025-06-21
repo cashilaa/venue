@@ -16,17 +16,16 @@ from config import *
 class VenueSpecExtractor:
     
     def __init__(self):
+        # Create necessary directories BEFORE logging setup
+        os.makedirs(OUTPUT_DIR, exist_ok=True)
+        os.makedirs(PDF_CACHE_DIR, exist_ok=True)
+        os.makedirs(LOGS_DIR, exist_ok=True)
         self.setup_logging()
         self.web_scraper = VenueWebScraper()
         self.pdf_processor = PDFProcessor()
         self.data_extractor = DataExtractor()
         self.data_standardizer = DataStandardizer()
         self.data_exporter = DataExporter()
-        
-        # Create necessary directories
-        os.makedirs(OUTPUT_DIR, exist_ok=True)
-        os.makedirs(PDF_CACHE_DIR, exist_ok=True)
-        os.makedirs(LOGS_DIR, exist_ok=True)
     
     def setup_logging(self):
         log_filename = f"venue_extraction_{datetime.now().strftime('%Y%m%d_%H%M%S')}.log"
@@ -163,10 +162,117 @@ class VenueSpecExtractor:
             "cache_size": len(os.listdir(PDF_CACHE_DIR)) if os.path.exists(PDF_CACHE_DIR) else 0
         }
 
+def auto_discover_venues():
+    """
+    Automatically discover a list of real venue names by scraping a Wikipedia list page.
+    Only returns actual venues, not categories, lists, or meta pages.
+    """
+    import requests
+    from bs4 import BeautifulSoup
+
+    # Example: Wikipedia list of concert halls in the United States
+    wiki_url = "https://en.wikipedia.org/wiki/List_of_concert_halls"
+
+    try:
+        response = requests.get(wiki_url, timeout=15)
+        response.raise_for_status()
+        soup = BeautifulSoup(response.content, "html.parser")
+        venue_names = set()
+
+        # Exclude links/names with these substrings (case-insensitive)
+        EXCLUDE_SUBSTRINGS = [
+            "list", "category", "portal", "article", "commons", "main page", "current events",
+            "random article", "disambiguation", "template", "help:", "special:", "wikipedia:", "file:"
+        ]
+
+        # Prefer extracting from the main venue table if present
+        tables = soup.find_all("table", class_="wikitable")
+        if tables:
+            for table in tables:
+                for row in table.find_all("tr"):
+                    cells = row.find_all("td")
+                    if cells:
+                        a = cells[0].find("a")
+                        if a and a.get("href", "").startswith("/wiki/"):
+                            href = a.get("href", "").lower()
+                            name = a.get_text(strip=True)
+                            lname = name.lower()
+                            if (
+                                len(name) > 4
+                                and not any(ex in href for ex in EXCLUDE_SUBSTRINGS)
+                                and not any(ex in lname for ex in EXCLUDE_SUBSTRINGS)
+                                and not href.startswith("/wiki/list_of")
+                                and not href.startswith("/wiki/category:")
+                                and not href.startswith("/wiki/portal:")
+                                and not href.startswith("/wiki/template:")
+                                and not href.startswith("/wiki/special:")
+                                and not href.startswith("/wiki/wikipedia:")
+                                and not href.startswith("/wiki/file:")
+                            ):
+                                venue_names.add(name)
+        else:
+            # Fallback: old <ul> logic if no table found
+            for ul in soup.find_all("ul"):
+                for li in ul.find_all("li"):
+                    a = li.find("a")
+                    if a and a.get("href", "").startswith("/wiki/"):
+                        href = a.get("href", "").lower()
+                        name = a.get_text(strip=True)
+                        lname = name.lower()
+                        if (
+                            len(name) > 4
+                            and not any(ex in href for ex in EXCLUDE_SUBSTRINGS)
+                            and not any(ex in lname for ex in EXCLUDE_SUBSTRINGS)
+                            and not href.startswith("/wiki/list_of")
+                            and not href.startswith("/wiki/category:")
+                            and not href.startswith("/wiki/portal:")
+                            and not href.startswith("/wiki/template:")
+                            and not href.startswith("/wiki/special:")
+                            and not href.startswith("/wiki/wikipedia:")
+                            and not href.startswith("/wiki/file:")
+                        ):
+                            venue_names.add(name)
+
+        # Post-process: Exclude names with meta/list/category/portal/template/special/file substrings
+        EXCLUDE_SUBSTRINGS = [
+            "list", "category", "portal", "article", "commons", "main page", "current events",
+            "random article", "disambiguation", "template", "help:", "special:", "wikipedia:", "file:"
+        ]
+        filtered_venue_names = [
+            name for name in venue_names
+            if not any(ex in name.lower() for ex in EXCLUDE_SUBSTRINGS)
+        ]
+        filtered_venue_names = sorted(filtered_venue_names)
+        if not filtered_venue_names:
+            logging.warning("No venues found from Wikipedia list after filtering.")
+        return list(filtered_venue_names)
+
+    except Exception as e:
+        logging.error(f"Error during venue auto-discovery from Wikipedia: {e}")
+        return []
+
+def filter_artist_venues(venue_names):
+    """
+    Filter venue names to only include those likely to be artist/event venues.
+    """
+    keywords = [
+        "theatre", "theater", "hall", "center", "centre", "auditorium", "music", "arts", "arena", "stadium",
+        "opera", "concert", "performing", "club", "jazz", "philharmonic", "orchestra", "cultural", "amphitheatre",
+        "amphitheater", "recital", "auditorium", "event space", "event hall", "event center", "event centre"
+    ]
+    filtered = []
+    for name in venue_names:
+        lname = name.lower()
+        if any(kw in lname for kw in keywords):
+            filtered.append(name)
+    return filtered
+
+MAX_VENUES_PER_RUN = 20  # Limit the number of venues processed per run
+
 def main():
     parser = argparse.ArgumentParser(description='AI-powered venue specification extractor')
     
-    parser.add_argument('venues', nargs='+', help='Venue names to process')
+    parser.add_argument('venues', nargs='*', help='Venue names to process')
     parser.add_argument('--skip-web-search', action='store_true', 
                        help='Skip web search and use provided PDF paths')
     parser.add_argument('--pdf-paths', nargs='*', 
@@ -182,13 +288,26 @@ def main():
     parser.add_argument('--category', type=str,
                        help='Category to filter by (lighting, sound, video)')
 
-    # Show help if no arguments are provided
-    if len(sys.argv) == 1:
-        parser.print_help(sys.stderr)
-        sys.exit(1)
-    
     args = parser.parse_args()
-    
+
+    # If no venues provided, auto-discover
+    if not args.venues or len(args.venues) == 0:
+        print("No venues provided. Automatically discovering venues...")
+        args.venues = auto_discover_venues()
+        print(f"Discovered venues: {args.venues}")
+
+    # Filter for artist/event venues only
+    filtered_venues = filter_artist_venues(args.venues)
+    if not filtered_venues:
+        print("No artist/event venues found after filtering.")
+        return
+    # Limit the number of venues processed per run
+    limited_venues = filtered_venues[:MAX_VENUES_PER_RUN]
+    if len(filtered_venues) > MAX_VENUES_PER_RUN:
+        print(f"Limiting to first {MAX_VENUES_PER_RUN} venues for speed.")
+    args.venues = limited_venues
+    print(f"Filtered venues: {args.venues}")
+
     extractor = VenueSpecExtractor()
     
     if args.search_equipment:

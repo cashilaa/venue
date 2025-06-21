@@ -51,121 +51,124 @@ class VenueWebScraper:
         return venue_websites
     
     def _search_venue_websites(self, venue_name: str) -> List[str]:
-        """Search for a specific venue's websites using multiple methods."""
+        """
+        Search for a specific venue's official website using Serper API,
+        with a query focused on technical specifications and excluding Wikipedia.
+        If Serper fails or returns nothing, fallback to DuckDuckGo.
+        """
         websites = []
-        
-        # Method 1: Google Search API (if available)
-        if GOOGLE_SEARCH_API_KEY and GOOGLE_SEARCH_ENGINE_ID:
-            google_results = self._google_search(venue_name)
-            websites.extend(google_results)
-        
-        # Method 2: DuckDuckGo search scraping
-        ddg_results = self._duckduckgo_search(venue_name)
-        websites.extend(ddg_results)
-        
-        # Method 3: Direct domain guessing
-        direct_results = self._guess_venue_domains(venue_name)
-        websites.extend(direct_results)
-        
+        serper_failed = False
+        if SERPER_API_KEY:
+            serper_results = self._serper_search(venue_name)
+            if isinstance(serper_results, str) and serper_results == "error":
+                serper_failed = True
+            else:
+                websites.extend(serper_results)
+        # Fallback if Serper failed or returned nothing
+        if not websites or serper_failed:
+            ddg_results = self._duckduckgo_search(venue_name)
+            websites.extend(ddg_results)
         # Remove duplicates and validate
         unique_websites = list(set(websites))
         validated_websites = self._validate_websites(unique_websites)
-        
         return validated_websites
     
-    def _google_search(self, venue_name: str) -> List[str]:
-        """Search using Google Custom Search API."""
+    def _serper_search(self, venue_name: str):
+        """
+        Search using Serper API for the official site and technical specification PDF,
+        excluding Wikipedia and focusing on artist/event venues.
+        Returns "error" if the request fails.
+        """
         try:
-            search_url = "https://www.googleapis.com/customsearch/v1"
-            params = {
-                'key': GOOGLE_SEARCH_API_KEY,
-                'cx': GOOGLE_SEARCH_ENGINE_ID,
-                'q': f'"{venue_name}" venue official website',
-                'num': 10
+            search_url = "https://google.serper.dev/search"
+            query = (
+                f'"{venue_name}" (theatre|hall|center|centre|auditorium|music|arts|arena|stadium|opera|concert|performing|club|jazz|philharmonic|orchestra|cultural) '
+                f'official site technical specification filetype:pdf -wikipedia'
+            )
+            headers = {
+                "X-API-KEY": SERPER_API_KEY,
+                "Content-Type": "application/json"
             }
-            
-            response = requests.get(search_url, params=params)
-            response.raise_for_status()
-            
+            payload = {"q": query}
+            response = requests.post(search_url, headers=headers, json=payload)
+            if response.status_code != 200:
+                logging.error(f"Serper search failed for {venue_name}: {response.status_code} {response.text}")
+                return "error"
             results = response.json()
             websites = []
-            
-            for item in results.get('items', []):
-                websites.append(item['link'])
-                
+            # Serper returns results in 'organic' key
+            for item in results.get('organic', []):
+                link = item.get('link')
+                if link:
+                    websites.append(link)
             return websites
-            
         except Exception as e:
-            logging.error(f"Google search failed for {venue_name}: {e}")
-            return []
+            logging.error(f"Serper search failed for {venue_name}: {e}")
+            return "error"
     
     def _duckduckgo_search(self, venue_name: str) -> List[str]:
-        """Search using DuckDuckGo (scraping)."""
+        """Search using DuckDuckGo (scraping), filtering for likely official venue sites."""
         try:
-            search_query = f'"{venue_name}" venue official website'
+            search_query = f'"{venue_name}" venue official website technical specification filetype:pdf'
             search_url = f"https://duckduckgo.com/html/?q={search_query}"
-            
             response = self.session.get(search_url)
             response.raise_for_status()
-            
             soup = BeautifulSoup(response.content, 'html.parser')
             websites = []
-            
+            venue_keywords = [
+                "center", "centre", "theatre", "theater", "hall", "arts", "opera", "auditorium", "stadium", "arena", "philharmonic", "orchestra"
+            ]
+            exclude_domains = [
+                "dictionary.cambridge.org", "thesaurus", "wikipedia.org", "wikidata.org", "wikimedia.org", "youtube.com", "facebook.com", "twitter.com", "linkedin.com", "tripadvisor.com"
+            ]
             for link in soup.find_all('a', class_='result__url'):
                 href = link.get('href')
                 if href and href.startswith('http'):
-                    websites.append(href)
-                    
-            return websites[:10]  # Limit results
-            
+                    domain = urlparse(href).netloc.lower()
+                    # Exclude known irrelevant domains
+                    if any(ex in domain for ex in exclude_domains):
+                        continue
+                    # Only keep if domain or path contains venue name or venue keywords
+                    text = href.lower()
+                    if any(kw in text for kw in venue_keywords) or any(kw in domain for kw in venue_keywords) or venue_name.lower().replace(" ", "") in domain.replace(" ", ""):
+                        websites.append(href)
+            return websites[:5]  # Limit to 5 best matches
         except Exception as e:
             logging.error(f"DuckDuckGo search failed for {venue_name}: {e}")
             return []
-    
-    def _guess_venue_domains(self, venue_name: str) -> List[str]:
-        """Attempt to guess venue domain names."""
-        # Clean venue name for domain guessing
-        clean_name = re.sub(r'[^a-zA-Z0-9\s]', '', venue_name.lower())
-        words = clean_name.split()
-        
-        potential_domains = []
-        
-        # Common patterns
-        if len(words) >= 2:
-            potential_domains.extend([
-                f"https://www.{words[0]}{words[1]}.com",
-                f"https://www.{words[0]}-{words[1]}.com",
-                f"https://www.{words[0]}{words[1]}.org",
-                f"https://www.{''.join(words)}.com",
-                f"https://www.{'-'.join(words)}.com"
-            ])
-        elif len(words) == 1:
-            potential_domains.extend([
-                f"https://www.{words[0]}.com",
-                f"https://www.{words[0]}.org",
-                f"https://www.{words[0]}venue.com",
-                f"https://www.{words[0]}center.com"
-            ])
-        
-        return potential_domains
+
+    # Domain guessing removed as per user feedback.
     
     def _validate_websites(self, websites: List[str]) -> List[str]:
-        """Validate that websites are accessible and relevant."""
+        """Validate that websites are accessible and likely to be official venue sites."""
         validated = []
-        
+        venue_keywords = [
+            "center", "centre", "theatre", "theater", "hall", "arts", "opera", "auditorium", "stadium", "arena", "philharmonic", "orchestra"
+        ]
+        exclude_domains = [
+            "dictionary.cambridge.org", "thesaurus", "wikipedia.org", "wikidata.org", "wikimedia.org", "youtube.com", "facebook.com", "twitter.com", "linkedin.com", "tripadvisor.com"
+        ]
         for website in websites:
             try:
+                domain = urlparse(website).netloc.lower()
+                if any(ex in domain for ex in exclude_domains):
+                    continue
                 response = self.session.get(website, timeout=10)
                 if response.status_code == 200:
-                    # Basic relevance check
-                    content = response.text.lower()
-                    if any(keyword in content for keyword in ['venue', 'event', 'conference', 'theater', 'hall']):
+                    # Decode with errors="replace" to avoid decoding warnings
+                    try:
+                        content = response.content.decode(response.encoding or "utf-8", errors="replace").lower()
+                    except Exception:
+                        content = response.text.lower()
+                    # Must contain venue keywords in domain or content
+                    if (
+                        any(kw in domain for kw in venue_keywords)
+                        or any(kw in content for kw in venue_keywords)
+                    ):
                         validated.append(website)
-                        
             except Exception as e:
                 logging.debug(f"Website validation failed for {website}: {e}")
                 continue
-                
         return validated
     
     def find_pdfs_on_websites(self, venue_websites: Dict[str, List[str]]) -> Dict[str, List[Dict]]:
@@ -210,9 +213,14 @@ class VenueWebScraper:
             # Get main page
             response = self.session.get(base_url, timeout=10)
             response.raise_for_status()
-            
-            soup = BeautifulSoup(response.content, 'html.parser')
-            
+
+            # Decode with errors="replace" to avoid decoding warnings
+            try:
+                html = response.content.decode(response.encoding or "utf-8", errors="replace")
+            except Exception:
+                html = response.text
+            soup = BeautifulSoup(html, 'html.parser')
+
             # Find direct PDF links
             pdf_links = soup.find_all('a', href=re.compile(r'\.pdf$', re.I))
             
