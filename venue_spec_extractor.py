@@ -65,6 +65,11 @@ class VenueSpecExtractor:
                 logging.info("Step 3: Downloading PDFs...")
                 venue_pdfs = await self.web_scraper.download_pdfs(venue_pdfs)
             
+            # Check if we found any PDFs - fail if none found
+            total_pdfs = sum(len(pdfs) for pdfs in venue_pdfs.values())
+            if total_pdfs == 0:
+                raise Exception("No PDFs found for any venues. System requires actual venue PDFs to function.")
+            
             # Step 4: Process PDFs
             logging.info("Step 4: Processing PDFs and extracting content...")
             processed_content = self.pdf_processor.process_pdfs(venue_pdfs)
@@ -211,27 +216,8 @@ def auto_discover_venues():
                             ):
                                 venue_names.add(name)
         else:
-            # Fallback: old <ul> logic if no table found
-            for ul in soup.find_all("ul"):
-                for li in ul.find_all("li"):
-                    a = li.find("a")
-                    if a and a.get("href", "").startswith("/wiki/"):
-                        href = a.get("href", "").lower()
-                        name = a.get_text(strip=True)
-                        lname = name.lower()
-                        if (
-                            len(name) > 4
-                            and not any(ex in href for ex in EXCLUDE_SUBSTRINGS)
-                            and not any(ex in lname for ex in EXCLUDE_SUBSTRINGS)
-                            and not href.startswith("/wiki/list_of")
-                            and not href.startswith("/wiki/category:")
-                            and not href.startswith("/wiki/portal:")
-                            and not href.startswith("/wiki/template:")
-                            and not href.startswith("/wiki/special:")
-                            and not href.startswith("/wiki/wikipedia:")
-                            and not href.startswith("/wiki/file:")
-                        ):
-                            venue_names.add(name)
+            # No table found - fail instead of using fallback
+            raise Exception("No venue table found on Wikipedia page. Cannot auto-discover venues.")
 
         # Post-process: Exclude names with meta/list/category/portal/template/special/file substrings
         EXCLUDE_SUBSTRINGS = [

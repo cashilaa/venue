@@ -52,25 +52,29 @@ class VenueWebScraper:
     
     def _search_venue_websites(self, venue_name: str) -> List[str]:
         """
-        Search for a specific venue's official website using Serper API,
-        with a query focused on technical specifications and excluding Wikipedia.
-        If Serper fails or returns nothing, fallback to DuckDuckGo.
+        Search for a specific venue's official website using Serper API.
+        Fails if Serper API is not available or returns no results.
         """
+        if not SERPER_API_KEY:
+            raise Exception("Serper API key is required for venue website search")
+        
         websites = []
-        serper_failed = False
-        if SERPER_API_KEY:
-            serper_results = self._serper_search(venue_name)
-            if isinstance(serper_results, str) and serper_results == "error":
-                serper_failed = True
-            else:
-                websites.extend(serper_results)
-        # Fallback if Serper failed or returned nothing
-        if not websites or serper_failed:
-            ddg_results = self._duckduckgo_search(venue_name)
-            websites.extend(ddg_results)
+        serper_results = self._serper_search(venue_name)
+        if isinstance(serper_results, str) and serper_results == "error":
+            raise Exception(f"Serper API search failed for venue: {venue_name}")
+        
+        websites.extend(serper_results)
+        
+        if not websites:
+            raise Exception(f"No websites found for venue: {venue_name}")
+        
         # Remove duplicates and validate
         unique_websites = list(set(websites))
         validated_websites = self._validate_websites(unique_websites)
+        
+        if not validated_websites:
+            raise Exception(f"No valid websites found for venue: {venue_name}")
+        
         return validated_websites
     
     def _serper_search(self, venue_name: str):
@@ -81,62 +85,73 @@ class VenueWebScraper:
         """
         try:
             search_url = "https://google.serper.dev/search"
-            query = (
-                f'"{venue_name}" (theatre|hall|center|centre|auditorium|music|arts|arena|stadium|opera|concert|performing|club|jazz|philharmonic|orchestra|cultural) '
-                f'official site technical specification filetype:pdf -wikipedia'
-            )
+            
+            # First search for the venue's official website
+            query = f'"{venue_name}" official website -wikipedia -tripadvisor'
             headers = {
                 "X-API-KEY": SERPER_API_KEY,
                 "Content-Type": "application/json"
             }
             payload = {"q": query}
-            response = requests.post(search_url, headers=headers, json=payload)
+            
+            # Add timeout and retry logic
+            response = requests.post(search_url, headers=headers, json=payload, timeout=15)
             if response.status_code != 200:
                 logging.error(f"Serper search failed for {venue_name}: {response.status_code} {response.text}")
                 return "error"
+                
             results = response.json()
             websites = []
-            # Serper returns results in 'organic' key
+            
+            # Get organic results
             for item in results.get('organic', []):
                 link = item.get('link')
-                if link:
+                if link and self._is_likely_venue_website(link, venue_name):
                     websites.append(link)
+            
+            # If we found websites, also search specifically for PDFs
+            if websites:
+                time.sleep(1)  # Rate limiting
+                pdf_query = f'"{venue_name}" technical specifications OR equipment list filetype:pdf'
+                pdf_payload = {"q": pdf_query}
+                
+                try:
+                    pdf_response = requests.post(search_url, headers=headers, json=pdf_payload, timeout=15)
+                    if pdf_response.status_code == 200:
+                        pdf_results = pdf_response.json()
+                        for item in pdf_results.get('organic', []):
+                            link = item.get('link')
+                            if link and link.endswith('.pdf'):
+                                websites.append(link)
+                except Exception as e:
+                    logging.debug(f"PDF search failed for {venue_name}: {e}")
+            
             return websites
+            
+        except requests.exceptions.Timeout:
+            logging.error(f"Serper search timed out for {venue_name}")
+            return "error"
         except Exception as e:
             logging.error(f"Serper search failed for {venue_name}: {e}")
             return "error"
     
-    def _duckduckgo_search(self, venue_name: str) -> List[str]:
-        """Search using DuckDuckGo (scraping), filtering for likely official venue sites."""
-        try:
-            search_query = f'"{venue_name}" venue official website technical specification filetype:pdf'
-            search_url = f"https://duckduckgo.com/html/?q={search_query}"
-            response = self.session.get(search_url)
-            response.raise_for_status()
-            soup = BeautifulSoup(response.content, 'html.parser')
-            websites = []
-            venue_keywords = [
-                "center", "centre", "theatre", "theater", "hall", "arts", "opera", "auditorium", "stadium", "arena", "philharmonic", "orchestra"
-            ]
-            exclude_domains = [
-                "dictionary.cambridge.org", "thesaurus", "wikipedia.org", "wikidata.org", "wikimedia.org", "youtube.com", "facebook.com", "twitter.com", "linkedin.com", "tripadvisor.com"
-            ]
-            for link in soup.find_all('a', class_='result__url'):
-                href = link.get('href')
-                if href and href.startswith('http'):
-                    domain = urlparse(href).netloc.lower()
-                    # Exclude known irrelevant domains
-                    if any(ex in domain for ex in exclude_domains):
-                        continue
-                    # Only keep if domain or path contains venue name or venue keywords
-                    text = href.lower()
-                    if any(kw in text for kw in venue_keywords) or any(kw in domain for kw in venue_keywords) or venue_name.lower().replace(" ", "") in domain.replace(" ", ""):
-                        websites.append(href)
-            return websites[:5]  # Limit to 5 best matches
-        except Exception as e:
-            logging.error(f"DuckDuckGo search failed for {venue_name}: {e}")
-            return []
-
+    def _is_likely_venue_website(self, url: str, venue_name: str) -> bool:
+        """Check if a URL is likely to be the venue's official website."""
+        domain = urlparse(url).netloc.lower()
+        venue_words = venue_name.lower().split()
+        
+        # Check if venue name appears in domain
+        for word in venue_words:
+            if len(word) > 3 and word in domain:
+                return True
+        
+        # Check for venue-related keywords in domain
+        venue_keywords = ['center', 'centre', 'theatre', 'theater', 'hall', 'arts', 'opera', 'auditorium']
+        if any(keyword in domain for keyword in venue_keywords):
+            return True
+            
+        return False
+    
     # Domain guessing removed as per user feedback.
     
     def _validate_websites(self, websites: List[str]) -> List[str]:

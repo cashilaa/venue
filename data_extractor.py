@@ -192,7 +192,7 @@ class DataExtractor:
             
         except Exception as e:
             logging.error(f"AI extraction from table failed: {e}")
-            return []
+            raise Exception(f"Failed to extract equipment data from table: {e}")
     
     def _ai_extract_from_text(self, text_chunk: str, pdf_content: PDFContent, chunk_idx: int) -> List[EquipmentItem]:
         """Use AI to extract equipment data from text chunk."""
@@ -260,7 +260,7 @@ class DataExtractor:
             
         except Exception as e:
             logging.error(f"AI extraction from text failed: {e}")
-            return []
+            raise Exception(f"Failed to extract equipment data from text: {e}")
     
     def _table_to_text(self, table: List[List[str]]) -> str:
         """Convert table structure to readable text format."""
@@ -428,11 +428,4 @@ class DataExtractor:
             
         except Exception as e:
             logging.error(f"Error getting equipment features for {manufacturer} {model}: {e}")
-            return {
-                "category": "unknown",
-                "type": "unknown",
-                "features": [],
-                "specifications": {},
-                "typical_applications": [],
-                "compatibility": []
-            }
+            raise Exception(f"Failed to get equipment features for {manufacturer} {model}: {e}")
